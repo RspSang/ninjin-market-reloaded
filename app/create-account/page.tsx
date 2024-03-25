@@ -1,5 +1,7 @@
 import { ChatBubbleOvalLeftEllipsisIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
+import FormInput from '../components/form-input';
+import FormButton from '../components/form-btn';
 
 export default function CreateAccount() {
   return (
@@ -9,16 +11,26 @@ export default function CreateAccount() {
         <h2 className="text-xl">フォームを作成して会員登録しましょう</h2>
       </div>
       <form className="flex flex-col gap-3">
-        <div className="flex flex-col gap-2">
-          <input
-            className="bg-transparent rounded-md w-full h-10 ring-1 ring-neutral-200 border-none focus:outline-none focus:ring-2 focus:ring-orange-500  placeholder:text-neutral-400"
-            type="text"
-            placeholder="ユーザーネーム"
-            required
-          />
-          <span className="text-red-500 font-medium">エラー</span>
-        </div>
-        <button className="primary-btn h-10">アカウント作成</button>
+        <FormInput
+          type="text"
+          placeholder="ユーザーネーム"
+          required
+          errors={[]}
+        />
+        <FormInput type="email" placeholder="Eメール" required errors={[]} />
+        <FormInput
+          type="password"
+          placeholder="パスワード"
+          required
+          errors={[]}
+        />
+        <FormInput
+          type="password"
+          placeholder="パスワードの確認"
+          required
+          errors={[]}
+        />
+        <FormButton loading={false} text="アカウント作成" />
       </form>
       <div className="w-full h-px bg-neutral-500" />
       <div>
