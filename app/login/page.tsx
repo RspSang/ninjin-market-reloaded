@@ -3,6 +3,11 @@ import FormButton from '../components/form-btn';
 import SocialLogin from '../components/social-login';
 
 export default function Login() {
+  const handleForm = async (formData: FormData) => {
+    'use server';
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    console.log('logged in!');
+  };
   return (
     <div className="flex flex-col gap-10 py-8 px-6">
       <div className="flex flex-col gap-2 *:font-medium">
@@ -11,15 +16,22 @@ export default function Login() {
           Eメールとパスワードを入力しログインしましょう
         </h2>
       </div>
-      <form className="flex flex-col gap-3">
-        <FormInput type="email" placeholder="Eメール" required errors={[]} />
+      <form action={handleForm} className="flex flex-col gap-3">
         <FormInput
+          name="email"
+          type="email"
+          placeholder="Eメール"
+          required
+          errors={[]}
+        />
+        <FormInput
+          name="password"
           type="password"
           placeholder="パスワード"
           required
           errors={[]}
         />
-        <FormButton loading={false} text="アカウント作成" />
+        <FormButton text="ログイン" />
       </form>
       <SocialLogin />
     </div>

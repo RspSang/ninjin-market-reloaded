@@ -11,19 +11,28 @@ export default function CreateAccount() {
       </div>
       <form className="flex flex-col gap-3">
         <FormInput
+          name="username"
           type="text"
           placeholder="ユーザーネーム"
           required
           errors={[]}
         />
-        <FormInput type="email" placeholder="Eメール" required errors={[]} />
         <FormInput
+          name="email"
+          type="email"
+          placeholder="Eメール"
+          required
+          errors={[]}
+        />
+        <FormInput
+          name="password"
           type="password"
           placeholder="パスワード"
           required
           errors={[]}
         />
         <FormInput
+          name="confirmPassword"
           type="password"
           placeholder="パスワードの確認"
           required

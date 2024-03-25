@@ -3,6 +3,7 @@ interface FormInputProps {
   placeholder: string;
   required: boolean;
   errors: string[];
+  name: string;
 }
 
 export default function FormInput({
@@ -10,14 +11,16 @@ export default function FormInput({
   placeholder,
   required,
   errors,
+  name,
 }: FormInputProps) {
   return (
     <div className="flex flex-col gap-2">
       <input
-        className="bg-transparent rounded-md w-full h-10 ring-2 ring-neutral-200 border-none focus:outline-none focus:ring-4 focus:ring-orange-500 transition placeholder:text-neutral-400"
+        name={name}
         type={type}
         placeholder={placeholder}
         required={required}
+        className="bg-transparent rounded-md w-full h-10 ring-2 ring-neutral-200 border-none focus:outline-none focus:ring-4 focus:ring-orange-500 transition placeholder:text-neutral-400"
       />
       {errors.map((error, index) => (
         <span key={index} className="text-red-500 font-medium">
