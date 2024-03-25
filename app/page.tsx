@@ -15,7 +15,7 @@ export default function Home() {
         <div className="flex gap-2">
           <span>既にアカウントをお持ちでしょうか？</span>
           <Link href={'/login'} className="hover:underline">
-            로그인
+            ログイン
           </Link>
         </div>
       </div>
