@@ -1,13 +1,14 @@
+'use client';
+
 import FormInput from '../components/form-input';
 import FormButton from '../components/form-btn';
 import SocialLogin from '../components/social-login';
+import { handleForm } from './actions';
+import { useFormState } from 'react-dom';
 
 export default function Login() {
-  const handleForm = async (formData: FormData) => {
-    'use server';
-    await new Promise(resolve => setTimeout(resolve, 5000));
-    console.log('logged in!');
-  };
+  const [state, action] = useFormState(handleForm, null);
+
   return (
     <div className="flex flex-col gap-10 py-8 px-6">
       <div className="flex flex-col gap-2 *:font-medium">
@@ -16,7 +17,7 @@ export default function Login() {
           Eメールとパスワードを入力しログインしましょう
         </h2>
       </div>
-      <form action={handleForm} className="flex flex-col gap-3">
+      <form action={action} className="flex flex-col gap-3">
         <FormInput
           name="email"
           type="email"
@@ -29,7 +30,7 @@ export default function Login() {
           type="password"
           placeholder="パスワード"
           required
-          errors={[]}
+          errors={state?.errors ?? []}
         />
         <FormButton text="ログイン" />
       </form>
