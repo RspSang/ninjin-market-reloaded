@@ -7,14 +7,14 @@ import {
 } from '../lib/constants';
 
 const formScheme = z.object({
-  email: z.string().min(1, EMAIL_REQUIRED_ERROR),
-  password: z.string().min(1, PASSWORD_REQUIRED_ERROR),
+  phone: z.string().min(1, EMAIL_REQUIRED_ERROR),
+  token: z.string().min(1, PASSWORD_REQUIRED_ERROR),
 });
 
-export async function login(prevState: any, formData: FormData) {
+export async function smsVerification(prevState: any, formData: FormData) {
   const data = {
-    email: formData.get('email'),
-    password: formData.get('password'),
+    phone: formData.get('phone'),
+    token: formData.get('token'),
   };
   const result = formScheme.safeParse(data);
   if (!result.success) {
