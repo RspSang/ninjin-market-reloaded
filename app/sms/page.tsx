@@ -1,5 +1,5 @@
-import FormInput from '../components/form-input';
-import FormButton from '../components/form-btn';
+import Input from '../components/input';
+import FormButton from '../components/button';
 import SocialLogin from '../components/social-login';
 
 export default function SMSLogin() {
@@ -10,9 +10,9 @@ export default function SMSLogin() {
         <h2 className="text-xl">携帯番号を認証しましょう</h2>
       </div>
       <form className="flex flex-col gap-3">
-        <FormInput type="number" placeholder="携帯番号" required errors={[]} />
-        <FormInput type="number" placeholder="認証番号" required errors={[]} />
-        <FormButton loading={false} text="認証" />
+        <Input type="number" placeholder="携帯番号" required errors={[]} />
+        <Input type="number" placeholder="認証番号" required errors={[]} />
+        <FormButton text="認証" />
       </form>
     </div>
   );

@@ -1,7 +1,7 @@
 'use client';
 
-import FormInput from '../components/form-input';
-import FormButton from '../components/form-btn';
+import Input from '../components/input';
+import Button from '../components/button';
 import SocialLogin from '../components/social-login';
 import { useFormState } from 'react-dom';
 import { createAccount } from './actions';
@@ -15,35 +15,41 @@ export default function CreateAccount() {
         <h2 className="text-xl">フォームを作成して会員登録しましょう</h2>
       </div>
       <form action={action} className="flex flex-col gap-3">
-        <FormInput
+        <Input
           name="username"
           type="text"
           placeholder="ユーザーネーム"
           required
+          minLength={3}
+          maxLength={10}
           errors={state?.fieldErrors.username}
         />
-        <FormInput
+        <Input
           name="email"
           type="email"
           placeholder="Eメール"
           required
           errors={state?.fieldErrors.email}
         />
-        <FormInput
+        <Input
           name="password"
           type="password"
           placeholder="パスワード"
           required
+          minLength={10}
+          maxLength={64}
           errors={state?.fieldErrors.password}
         />
-        <FormInput
+        <Input
           name="confirm_password"
           type="password"
           placeholder="パスワードの確認"
           required
+          minLength={10}
+          maxLength={64}
           errors={state?.fieldErrors.confirm_password}
         />
-        <FormButton text="アカウント作成" />
+        <Button text="アカウント作成" />
       </form>
       <SocialLogin />
     </div>
