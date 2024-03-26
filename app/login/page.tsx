@@ -18,19 +18,12 @@ export default function Login() {
         </h2>
       </div>
       <form action={action} className="flex flex-col gap-3">
-        <FormInput
-          name="email"
-          type="email"
-          placeholder="Eメール"
-          required
-          errors={[]}
-        />
+        <FormInput name="email" type="email" placeholder="Eメール" required />
         <FormInput
           name="password"
           type="password"
           placeholder="パスワード"
           required
-          errors={state?.errors ?? []}
         />
         <FormButton text="ログイン" />
       </form>
