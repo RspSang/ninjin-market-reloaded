@@ -23,17 +23,13 @@ export default function Login() {
           name="email"
           type="email"
           placeholder="Eメール"
-          required
-          errors={state?.fieldErrors.email}
+          errors={state?.fieldErrors?.email}
         />
         <Input
           name="password"
           type="password"
           placeholder="パスワード"
-          required
-          minLength={PASSWORD_MIN_LENGTH}
-          maxLength={PASSWORD_MAX_LENGTH}
-          errors={state?.fieldErrors.password}
+          errors={state?.fieldErrors?.password}
         />
         <Button text="ログイン" />
       </form>

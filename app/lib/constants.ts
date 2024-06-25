@@ -20,3 +20,4 @@ export const USERNAME_REQUIRED_ERROR = 'ユーザーネームを入力くださ�
 
 // EMAIL
 export const EMAIL_REQUIRED_ERROR = 'Eメールを入力ください';
+export const EMAIL_TYPE_ERROR = '正しいEメールを入力ください';
