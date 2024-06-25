@@ -2,8 +2,8 @@
 
 import { z } from 'zod';
 import {
+  EMAIL_FORMAT_ERROR,
   EMAIL_REQUIRED_ERROR,
-  EMAIL_TYPE_ERROR,
   PASSWORD_MAX_LENGTH,
   PASSWORD_MIN_LENGTH,
   PASSWORD_MIN_LENGTH_ERROR,
@@ -15,7 +15,7 @@ import {
 const formScheme = z.object({
   email: z
     .string({ required_error: EMAIL_REQUIRED_ERROR })
-    .email({ message: EMAIL_TYPE_ERROR })
+    .email({ message: EMAIL_FORMAT_ERROR })
     .toLowerCase(),
   password: z
     .string({ required_error: PASSWORD_REQUIRED_ERROR })

@@ -5,31 +5,48 @@ import validator from 'validator';
 import {
   EMAIL_REQUIRED_ERROR,
   PASSWORD_REQUIRED_ERROR,
+  PHONE_FORMAT_ERROR,
 } from '../lib/constants';
+import { redirect } from 'next/navigation';
 
 const formScheme = z.object({
   phone: z.string().min(1, EMAIL_REQUIRED_ERROR),
   token: z.string().min(1, PASSWORD_REQUIRED_ERROR),
 });
 
-const phoneSchema = z.string().trim().refine(validator.isMobilePhone);
+const phoneSchema = z
+  .string()
+  .trim()
+  .refine(phone => validator.isMobilePhone(phone, 'ja-JP'), PHONE_FORMAT_ERROR);
 
-const tokenScheme = z.coerce.number().min(100000).max(999999)
+const tokenScheme = z.coerce.number().min(100000).max(999999);
 
-export async function smsVerification(prevState: any, formData: FormData) {
-  const data = {
-    phone: formData.get('phone'),
-    token: formData.parse('token'),
-  };
-  const result = formScheme.safeParse(data);
-  if (!result.success) {
-    console.log(result.error.flatten());
-    return { success: false, fieldErrors: result.error.flatten().fieldErrors };
+interface ActionState {
+  token: boolean;
+}
+
+export async function smsLogin(prevState: ActionState, formData: FormData) {
+  const phone = formData.get('phone');
+  const token = formData.get('token');
+  if (!prevState.token) {
+    const result = phoneSchema.safeParse(phone);
+    if (!result.success) {
+      return {
+        token: false,
+        error: result.error.flatten(),
+      };
+    } else {
+      return {
+        token: true,
+      };
+    }
   } else {
-    console.log(result.data);
+    const result = tokenScheme.safeParse(token);
+    if (!result.success) {
+      return { token: true, error: result.error.flatten() };
+      // return the errors
+    } else {
+      redirect('/');
+    }
   }
-  return {
-    success: true,
-    errors: ['wrong password', 'password too short'],
-  };
 }
