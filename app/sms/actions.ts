@@ -9,11 +9,6 @@ import {
 } from '../lib/constants';
 import { redirect } from 'next/navigation';
 
-const formScheme = z.object({
-  phone: z.string().min(1, EMAIL_REQUIRED_ERROR),
-  token: z.string().min(1, PASSWORD_REQUIRED_ERROR),
-});
-
 const phoneSchema = z
   .string()
   .trim()
