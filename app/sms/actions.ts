@@ -39,7 +39,6 @@ export async function smsLogin(prevState: ActionState, formData: FormData) {
     const result = tokenScheme.safeParse(token);
     if (!result.success) {
       return { token: true, error: result.error.flatten() };
-      // return the errors
     } else {
       redirect('/');
     }
