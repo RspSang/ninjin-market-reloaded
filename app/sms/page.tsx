@@ -1,7 +1,7 @@
 import Input from '../components/input';
-import FormButton from '../components/button';
 import { useFormState } from 'react-dom';
 import { smsVerification } from './actions';
+import Button from '../components/button';
 
 export default function SMSLogin() {
   const [state, action] = useFormState(smsVerification, null);
@@ -12,9 +12,9 @@ export default function SMSLogin() {
         <h2 className="text-xl">携帯番号を認証しましょう</h2>
       </div>
       <form action={action} className="flex flex-col gap-3">
-        <Input name="phone" type="number" placeholder="携帯番号" required />
-        <Input name="token" type="number" placeholder="認証番号" required />
-        <FormButton text="認証" />
+        <Input name="phone" type="text" placeholder="携帯番号" />
+        <Input name="token" type="number" placeholder="認証番号" />
+        <Button text="認証" />
       </form>
     </div>
   );

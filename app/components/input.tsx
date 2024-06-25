@@ -1,9 +1,6 @@
 import { InputHTMLAttributes } from 'react';
 
 interface InputProps {
-  type: string;
-  placeholder: string;
-  required: boolean;
   errors?: string[];
   name: string;
 }
