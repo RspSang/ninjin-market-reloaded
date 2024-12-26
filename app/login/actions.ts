@@ -4,11 +4,6 @@ import { z } from 'zod';
 import {
   EMAIL_FORMAT_ERROR,
   EMAIL_REQUIRED_ERROR,
-  PASSWORD_MAX_LENGTH,
-  PASSWORD_MIN_LENGTH,
-  PASSWORD_MIN_LENGTH_ERROR,
-  PASSWORD_REGEX,
-  PASSWORD_REGEX_ERROR,
   PASSWORD_REQUIRED_ERROR,
 } from '../lib/constants';
 
@@ -29,12 +24,8 @@ export async function login(prevState: any, formData: FormData) {
   };
   const result = formScheme.safeParse(data);
   if (!result.success) {
-    console.log(result.error.flatten());
     return result.error.flatten();
   } else {
     console.log(result.data);
   }
-  return {
-    errors: ['wrong password', 'password too short'],
-  };
 }

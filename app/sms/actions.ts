@@ -2,17 +2,17 @@
 
 import { z } from 'zod';
 import validator from 'validator';
-import {
-  EMAIL_REQUIRED_ERROR,
-  PASSWORD_REQUIRED_ERROR,
-  PHONE_FORMAT_ERROR,
-} from '../lib/constants';
+import { PHONE_FORMAT_ERROR } from '../lib/constants';
 import { redirect } from 'next/navigation';
 
 const phoneSchema = z
   .string()
   .trim()
-  .refine(phone => validator.isMobilePhone(phone, 'ja-JP'), PHONE_FORMAT_ERROR);
+  .refine(phone => validator.isMobilePhone(phone, 'ja-JP'), PHONE_FORMAT_ERROR)
+  .transform(phone => {
+    const cleanedPhone = phone.replace(/^0/, '');
+    return `+81${cleanedPhone}`;
+  });
 
 const tokenScheme = z.coerce.number().min(100000).max(999999);
 

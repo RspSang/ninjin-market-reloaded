@@ -17,9 +17,15 @@ export default function SMSLogin() {
       </div>
       <form action={action} className="flex flex-col gap-3">
         {state?.token ? (
-          <Input name="token" type="number" placeholder="認証番号" />
+          <Input
+            key="token"
+            name="token"
+            type="number"
+            placeholder="認証番号"
+          />
         ) : (
           <Input
+            key="phone"
             name="phone"
             type="text"
             placeholder="携帯番号"
