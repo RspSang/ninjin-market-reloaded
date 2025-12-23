@@ -1,14 +1,14 @@
 'use client';
 
 import Input from '../components/input';
-import { useFormState } from 'react-dom';
+import { useActionState } from 'react';
 import { smsLogin } from './actions';
 import Button from '../components/button';
 
 const initialState = { token: false, error: undefined };
 
 export default function SMSLogin() {
-  const [state, action] = useFormState(smsLogin, initialState);
+  const [state, action] = useActionState(smsLogin, initialState);
   return (
     <div className="flex flex-col gap-10 py-8 px-6">
       <div className="flex flex-col gap-2 *:font-medium">

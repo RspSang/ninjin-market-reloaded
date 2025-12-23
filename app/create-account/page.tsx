@@ -3,7 +3,7 @@
 import Input from '../components/input';
 import Button from '../components/button';
 import SocialLogin from '../components/social-login';
-import { useFormState } from 'react-dom';
+import { useActionState } from 'react';
 import { createAccount } from './actions';
 import {
   PASSWORD_MAX_LENGTH,
@@ -13,7 +13,7 @@ import {
 } from '../lib/constants';
 
 export default function CreateAccount() {
-  const [state, action] = useFormState(createAccount, null);
+  const [state, action] = useActionState(createAccount, null);
   return (
     <div className="flex flex-col gap-10 py-8 px-6">
       <div className="flex flex-col gap-2 *:font-medium">
