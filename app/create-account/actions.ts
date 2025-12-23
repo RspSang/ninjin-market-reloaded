@@ -33,29 +33,40 @@ const formScheme = z
   .object({
     username: z
       .string({
-        invalid_type_error: USERNAME_INVALID_TYPE_ERROR,
-        required_error: USERNAME_REQUIRED_ERROR,
+        error: (issue) =>
+          issue.input === undefined
+            ? USERNAME_REQUIRED_ERROR
+            : USERNAME_INVALID_TYPE_ERROR,
       })
-      .min(USERNAME_MIN_LENGTH, USERNAME_MIN_LENGTH_ERROR)
-      .max(USERNAME_MAX_LENGTH, USERNAME_MAX_LENGTH_ERROR)
+      .min(USERNAME_MIN_LENGTH, { error: USERNAME_MIN_LENGTH_ERROR })
+      .max(USERNAME_MAX_LENGTH, { error: USERNAME_MAX_LENGTH_ERROR })
       .toLowerCase()
       .trim(),
     email: z
-      .string({ required_error: EMAIL_REQUIRED_ERROR })
+      .string({
+        error: (issue) =>
+          issue.input === undefined ? EMAIL_REQUIRED_ERROR : 'Invalid type',
+      })
       .email()
       .toLowerCase(),
     password: z
-      .string({ required_error: PASSWORD_REQUIRED_ERROR })
-      .min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGTH_ERROR)
-      .max(PASSWORD_MAX_LENGTH, PASSWORD_MAX_LENGTH_ERROR)
-      .regex(passwordRegex, PASSWORD_REGEX_ERROR),
+      .string({
+        error: (issue) =>
+          issue.input === undefined ? PASSWORD_REQUIRED_ERROR : 'Invalid type',
+      })
+      .min(PASSWORD_MIN_LENGTH, { error: PASSWORD_MIN_LENGTH_ERROR })
+      .max(PASSWORD_MAX_LENGTH, { error: PASSWORD_MAX_LENGTH_ERROR })
+      .regex(passwordRegex, { error: PASSWORD_REGEX_ERROR }),
     confirm_password: z
-      .string({ required_error: PASSWORD_REQUIRED_ERROR })
-      .min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGTH_ERROR)
-      .max(PASSWORD_MAX_LENGTH, PASSWORD_MAX_LENGTH_ERROR),
+      .string({
+        error: (issue) =>
+          issue.input === undefined ? PASSWORD_REQUIRED_ERROR : 'Invalid type',
+      })
+      .min(PASSWORD_MIN_LENGTH, { error: PASSWORD_MIN_LENGTH_ERROR })
+      .max(PASSWORD_MAX_LENGTH, { error: PASSWORD_MAX_LENGTH_ERROR }),
   })
   .refine(checkPassword, {
-    message: PASSWORD_CHECK_ERROR,
+    error: PASSWORD_CHECK_ERROR,
     path: ['confirm_password'],
   });
 

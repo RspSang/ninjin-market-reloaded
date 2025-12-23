@@ -9,12 +9,18 @@ import {
 
 const formScheme = z.object({
   email: z
-    .string({ required_error: EMAIL_REQUIRED_ERROR })
-    .email({ message: EMAIL_FORMAT_ERROR })
+    .string({
+      error: (issue) =>
+        issue.input === undefined ? EMAIL_REQUIRED_ERROR : 'Invalid type',
+    })
+    .email({ error: EMAIL_FORMAT_ERROR })
     .toLowerCase(),
   password: z
-    .string({ required_error: PASSWORD_REQUIRED_ERROR })
-    .min(1, PASSWORD_REQUIRED_ERROR),
+    .string({
+      error: (issue) =>
+        issue.input === undefined ? PASSWORD_REQUIRED_ERROR : 'Invalid type',
+    })
+    .min(1, { error: PASSWORD_REQUIRED_ERROR }),
 });
 
 export async function login(prevState: any, formData: FormData) {
