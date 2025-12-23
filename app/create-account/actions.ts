@@ -2,8 +2,10 @@
 
 import { z } from 'zod';
 import {
+  EMAIL_FORMAT_ERROR,
   EMAIL_REQUIRED_ERROR,
   PASSWORD_CHECK_ERROR,
+  PASSWORD_INVALID_TYPE_ERROR,
   PASSWORD_MAX_LENGTH,
   PASSWORD_MAX_LENGTH_ERROR,
   PASSWORD_MIN_LENGTH,
@@ -11,6 +13,7 @@ import {
   PASSWORD_REGEX,
   PASSWORD_REGEX_ERROR,
   PASSWORD_REQUIRED_ERROR,
+  USERNAME_INVALID_CHARACTER_ERROR,
   USERNAME_INVALID_TYPE_ERROR,
   USERNAME_MAX_LENGTH,
   USERNAME_MAX_LENGTH_ERROR,
@@ -40,19 +43,18 @@ const formScheme = z
       })
       .min(USERNAME_MIN_LENGTH, { error: USERNAME_MIN_LENGTH_ERROR })
       .max(USERNAME_MAX_LENGTH, { error: USERNAME_MAX_LENGTH_ERROR })
-      .toLowerCase()
+      .refine(checkUsername, { error: USERNAME_INVALID_CHARACTER_ERROR })
       .trim(),
     email: z
-      .string({
+      .email({
         error: issue =>
-          issue.input === undefined ? EMAIL_REQUIRED_ERROR : 'Invalid type',
+          issue.input === undefined ? EMAIL_REQUIRED_ERROR : EMAIL_FORMAT_ERROR,
       })
-      .email()
       .toLowerCase(),
     password: z
       .string({
         error: issue =>
-          issue.input === undefined ? PASSWORD_REQUIRED_ERROR : 'Invalid type',
+          issue.input === undefined ? PASSWORD_REQUIRED_ERROR : PASSWORD_INVALID_TYPE_ERROR,
       })
       .min(PASSWORD_MIN_LENGTH, { error: PASSWORD_MIN_LENGTH_ERROR })
       .max(PASSWORD_MAX_LENGTH, { error: PASSWORD_MAX_LENGTH_ERROR })
@@ -60,7 +62,7 @@ const formScheme = z
     confirm_password: z
       .string({
         error: issue =>
-          issue.input === undefined ? PASSWORD_REQUIRED_ERROR : 'Invalid type',
+          issue.input === undefined ? PASSWORD_REQUIRED_ERROR : PASSWORD_INVALID_TYPE_ERROR,
       })
       .min(PASSWORD_MIN_LENGTH, { error: PASSWORD_MIN_LENGTH_ERROR })
       .max(PASSWORD_MAX_LENGTH, { error: PASSWORD_MAX_LENGTH_ERROR }),

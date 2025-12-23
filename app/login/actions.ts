@@ -13,7 +13,7 @@ const formScheme = z.object({
       error: (issue) =>
         issue.input === undefined ? EMAIL_REQUIRED_ERROR : 'Invalid type',
     })
-    .email({ error: EMAIL_FORMAT_ERROR })
+    .check(z.email({ error: EMAIL_FORMAT_ERROR }))
     .toLowerCase(),
   password: z
     .string({

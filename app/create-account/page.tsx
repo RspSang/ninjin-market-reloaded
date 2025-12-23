@@ -1,8 +1,8 @@
 'use client';
 
-import Input from '../components/input';
-import Button from '../components/button';
-import SocialLogin from '../components/social-login';
+import Input from '../components/Input';
+import Button from '../components/Button';
+import SocialLogin from '../components/SocialLogin';
 import { useActionState } from 'react';
 import { createAccount } from './actions';
 import {
