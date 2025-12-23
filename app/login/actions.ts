@@ -30,7 +30,7 @@ export async function login(prevState: any, formData: FormData) {
   };
   const result = formScheme.safeParse(data);
   if (!result.success) {
-    return result.error.flatten();
+    return z.flattenError(result.error);
   } else {
     console.log(result.data);
   }

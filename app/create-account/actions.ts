@@ -33,7 +33,7 @@ const formScheme = z
   .object({
     username: z
       .string({
-        error: (issue) =>
+        error: issue =>
           issue.input === undefined
             ? USERNAME_REQUIRED_ERROR
             : USERNAME_INVALID_TYPE_ERROR,
@@ -44,14 +44,14 @@ const formScheme = z
       .trim(),
     email: z
       .string({
-        error: (issue) =>
+        error: issue =>
           issue.input === undefined ? EMAIL_REQUIRED_ERROR : 'Invalid type',
       })
       .email()
       .toLowerCase(),
     password: z
       .string({
-        error: (issue) =>
+        error: issue =>
           issue.input === undefined ? PASSWORD_REQUIRED_ERROR : 'Invalid type',
       })
       .min(PASSWORD_MIN_LENGTH, { error: PASSWORD_MIN_LENGTH_ERROR })
@@ -59,7 +59,7 @@ const formScheme = z
       .regex(passwordRegex, { error: PASSWORD_REGEX_ERROR }),
     confirm_password: z
       .string({
-        error: (issue) =>
+        error: issue =>
           issue.input === undefined ? PASSWORD_REQUIRED_ERROR : 'Invalid type',
       })
       .min(PASSWORD_MIN_LENGTH, { error: PASSWORD_MIN_LENGTH_ERROR })
@@ -79,7 +79,7 @@ export async function createAccount(prevState: any, formData: FormData) {
   };
   const result = formScheme.safeParse(data);
   if (!result.success) {
-    return result.error.flatten();
+    return z.flattenError(result.error);
   } else {
     console.log(result.data);
   }

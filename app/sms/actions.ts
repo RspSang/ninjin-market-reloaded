@@ -28,7 +28,7 @@ export async function smsLogin(prevState: ActionState, formData: FormData) {
     if (!result.success) {
       return {
         token: false,
-        error: result.error.flatten(),
+        error: z.flattenError(result.error),
       };
     } else {
       return {
@@ -38,7 +38,7 @@ export async function smsLogin(prevState: ActionState, formData: FormData) {
   } else {
     const result = tokenScheme.safeParse(token);
     if (!result.success) {
-      return { token: true, error: result.error.flatten() };
+      return { token: true, error: z.flattenError(result.error) };
     } else {
       redirect('/');
     }
