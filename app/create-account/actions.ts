@@ -45,16 +45,16 @@ const formScheme = z
       .max(USERNAME_MAX_LENGTH, { error: USERNAME_MAX_LENGTH_ERROR })
       .refine(checkUsername, { error: USERNAME_INVALID_CHARACTER_ERROR })
       .trim(),
-    email: z
-      .email({
-        error: issue =>
-          issue.input === undefined ? EMAIL_REQUIRED_ERROR : EMAIL_FORMAT_ERROR,
-      })
-      .toLowerCase(),
+    email: z.email({
+      error: issue =>
+        issue.input === '' ? EMAIL_REQUIRED_ERROR : EMAIL_FORMAT_ERROR,
+    }),
     password: z
       .string({
         error: issue =>
-          issue.input === undefined ? PASSWORD_REQUIRED_ERROR : PASSWORD_INVALID_TYPE_ERROR,
+          issue.input === undefined
+            ? PASSWORD_REQUIRED_ERROR
+            : PASSWORD_INVALID_TYPE_ERROR,
       })
       .min(PASSWORD_MIN_LENGTH, { error: PASSWORD_MIN_LENGTH_ERROR })
       .max(PASSWORD_MAX_LENGTH, { error: PASSWORD_MAX_LENGTH_ERROR })
@@ -62,7 +62,9 @@ const formScheme = z
     confirm_password: z
       .string({
         error: issue =>
-          issue.input === undefined ? PASSWORD_REQUIRED_ERROR : PASSWORD_INVALID_TYPE_ERROR,
+          issue.input === undefined
+            ? PASSWORD_REQUIRED_ERROR
+            : PASSWORD_INVALID_TYPE_ERROR,
       })
       .min(PASSWORD_MIN_LENGTH, { error: PASSWORD_MIN_LENGTH_ERROR })
       .max(PASSWORD_MAX_LENGTH, { error: PASSWORD_MAX_LENGTH_ERROR }),

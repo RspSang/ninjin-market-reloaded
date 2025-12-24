@@ -4,22 +4,17 @@ import { z } from 'zod';
 import {
   EMAIL_FORMAT_ERROR,
   EMAIL_REQUIRED_ERROR,
+  PASSWORD_INVALID_TYPE_ERROR,
   PASSWORD_REQUIRED_ERROR,
 } from '../lib/constants';
 
 const formScheme = z.object({
-  email: z
-    .string({
-      error: (issue) =>
-        issue.input === undefined ? EMAIL_REQUIRED_ERROR : 'Invalid type',
-    })
-    .check(z.email({ error: EMAIL_FORMAT_ERROR }))
-    .toLowerCase(),
+  email: z.email({
+    error: issue =>
+      issue.input === '' ? EMAIL_REQUIRED_ERROR : EMAIL_FORMAT_ERROR,
+  }),
   password: z
-    .string({
-      error: (issue) =>
-        issue.input === undefined ? PASSWORD_REQUIRED_ERROR : 'Invalid type',
-    })
+    .string({ error: PASSWORD_INVALID_TYPE_ERROR })
     .min(1, { error: PASSWORD_REQUIRED_ERROR }),
 });
 
