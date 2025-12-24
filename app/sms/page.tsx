@@ -5,7 +5,7 @@ import { useActionState } from 'react';
 import { smsLogin } from './actions';
 import Button from '../components/Button';
 
-const initialState = { token: false, error: undefined };
+const initialState = { isTokenVerified: false, error: undefined };
 
 export default function SMSLogin() {
   const [state, action] = useActionState(smsLogin, initialState);
@@ -16,12 +16,13 @@ export default function SMSLogin() {
         <h2 className="text-xl">携帯番号を認証しましょう</h2>
       </div>
       <form action={action} className="flex flex-col gap-3">
-        {state?.token ? (
+        {state?.isTokenVerified ? (
           <Input
             key="token"
             name="token"
             type="number"
             placeholder="認証番号"
+            errors={state?.error?.formErrors}
           />
         ) : (
           <Input
@@ -32,7 +33,9 @@ export default function SMSLogin() {
             errors={state?.error?.formErrors}
           />
         )}
-        <Button text={state?.token ? 'トークン認証' : 'SMSを送って認証'} />
+        <Button
+          text={state?.isTokenVerified ? 'トークン認証' : 'SMSを送って認証'}
+        />
       </form>
     </div>
   );
