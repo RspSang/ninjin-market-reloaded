@@ -23,6 +23,7 @@ import {
   USERNAME_UNIQUE_ERROR,
 } from '../lib/constants';
 import db from '../lib/db';
+import bcrypt from 'bcrypt';
 
 const passwordRegex = new RegExp(PASSWORD_REGEX);
 
@@ -114,7 +115,20 @@ export async function createAccount(prevState: any, formData: FormData) {
     return z.flattenError(result.error);
   } else {
     // hash the password
+    const hashedPassword = await bcrypt.hash(result.data.password, 12);
+
     // save the user to db
+    const user = await db.user.create({
+      data: {
+        username: result.data.username,
+        email: result.data.email,
+        password: hashedPassword,
+      },
+      select: {
+        id: true,
+      },
+    });
+    console.log(user);
     // log the user in
     // redirect "/home"
   }
