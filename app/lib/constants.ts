@@ -11,6 +11,7 @@ export const PASSWORD_CHECK_ERROR = 'パスワードが一致していません'
 export const PASSWORD_REQUIRED_ERROR = 'パスワードを入力ください';
 export const PASSWORD_INVALID_TYPE_ERROR =
   '正しい形式のパスワードを入力ください';
+export const PASSWORD_INVALID_ERROR = 'パスワードが一致していません';
 
 // USERNAME
 export const USERNAME_MIN_LENGTH = 4;
