@@ -24,6 +24,8 @@ import {
 } from '../lib/constants';
 import db from '../lib/db';
 import bcrypt from 'bcrypt';
+import { redirect } from 'next/navigation';
+import getSession from '../lib/session';
 
 const passwordRegex = new RegExp(PASSWORD_REGEX);
 
@@ -128,8 +130,11 @@ export async function createAccount(prevState: any, formData: FormData) {
         id: true,
       },
     });
-    console.log(user);
     // log the user in
+    const session = await getSession();
+    session.id = user.id;
+    await session.save();
     // redirect "/home"
+    redirect('/profile');
   }
 }

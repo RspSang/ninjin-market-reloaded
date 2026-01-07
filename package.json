@@ -16,6 +16,7 @@
     "@types/bcrypt": "^6.0.0",
     "bcrypt": "^6.0.0",
     "better-sqlite3": "^12.5.0",
+    "iron-session": "^8.0.4",
     "next": "16.1.1",
     "prisma": "^7.2.0",
     "react": "^19",
