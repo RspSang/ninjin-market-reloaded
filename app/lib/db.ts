@@ -1,14 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
+import { PrismaClient } from '../generated/prisma/client';
 
-const db = new PrismaClient();
+const connectionString = process.env.DATABASE_URL || 'file:./database.db';
 
-async function test() {
-  const token = await db.sMSToken.create({
-    data: { token: '123456', user: { connect: { id: 1 } } },
-  });
-  console.log(token);
-}
-
-test();
+const adapter = new PrismaBetterSqlite3({ url: connectionString });
+const db = new PrismaClient({ adapter });
 
 export default db;

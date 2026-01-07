@@ -20,13 +20,15 @@ export const USERNAME_MAX_LENGTH_ERROR = 'ユーザーネームが長いです';
 export const USERNAME_INVALID_TYPE_ERROR =
   '正しい形式のユーザーネームを入力ください';
 export const USERNAME_REQUIRED_ERROR = 'ユーザーネームを入力ください';
-export const USERNAME_INVALID_CHARACTER_ERROR =
-  'ユーザーネームにpotatoは使えません';
+export const USERNAME_UNIQUE_ERROR =
+  'ユーザーネームはすでに使われています';
 
 // EMAIL
 export const EMAIL_REQUIRED_ERROR = 'メールアドレスを入力ください';
 export const EMAIL_FORMAT_ERROR = '正しいメールアドレスを入力ください';
-
+export const EMAIL_INVALID_CHARACTER_ERROR =
+  'メールアドレスはすでに使われています';
+export const EMAIL_UNIQUE_ERROR = 'メールアドレスはすでに使われています';
 // PHONE NUMBER
 export const PHONE_FORMAT_ERROR = '正しい電話番号を入力ください';
 
