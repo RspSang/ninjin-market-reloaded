@@ -29,38 +29,6 @@ import getSession from '../lib/session';
 
 const passwordRegex = new RegExp(PASSWORD_REGEX);
 
-const checkUniqueUsername = async (username: string) => {
-  const user = await db.user.findUnique({
-    where: {
-      username: username,
-    },
-    select: {
-      id: true,
-    },
-  });
-  return !Boolean(user);
-};
-
-const checkUniqueEmail = async (email: string) => {
-  const user = await db.user.findUnique({
-    where: {
-      email: email,
-    },
-    select: {
-      id: true,
-    },
-  });
-  return !Boolean(user);
-};
-
-const checkPassword = ({
-  password,
-  confirm_password,
-}: {
-  password: string;
-  confirm_password: string;
-}) => password === confirm_password;
-
 const formScheme = z
   .object({
     username: z
@@ -72,14 +40,11 @@ const formScheme = z
       })
       .min(USERNAME_MIN_LENGTH, { error: USERNAME_MIN_LENGTH_ERROR })
       .max(USERNAME_MAX_LENGTH, { error: USERNAME_MAX_LENGTH_ERROR })
-      .refine(checkUniqueUsername, { error: USERNAME_UNIQUE_ERROR })
       .trim(),
-    email: z
-      .email({
-        error: issue =>
-          issue.input === '' ? EMAIL_REQUIRED_ERROR : EMAIL_FORMAT_ERROR,
-      })
-      .refine(checkUniqueEmail, { error: EMAIL_UNIQUE_ERROR }),
+    email: z.email({
+      error: issue =>
+        issue.input === '' ? EMAIL_REQUIRED_ERROR : EMAIL_FORMAT_ERROR,
+    }),
     password: z
       .string({
         error: issue =>
@@ -100,9 +65,38 @@ const formScheme = z
       .min(PASSWORD_MIN_LENGTH, { error: PASSWORD_MIN_LENGTH_ERROR })
       .max(PASSWORD_MAX_LENGTH, { error: PASSWORD_MAX_LENGTH_ERROR }),
   })
-  .refine(checkPassword, {
-    error: PASSWORD_CHECK_ERROR,
-    path: ['confirm_password'],
+  .superRefine(async ({ username, email, password, confirm_password }, ctx) => {
+    const usernameExists = await db.user.findUnique({
+      where: { username },
+      select: { id: true },
+    });
+    if (usernameExists) {
+      ctx.addIssue({
+        code: 'custom',
+        message: USERNAME_UNIQUE_ERROR,
+        path: ['username'],
+      });
+      return;
+    }
+    const emailExists = await db.user.findUnique({
+      where: { email },
+      select: { id: true },
+    });
+    if (emailExists) {
+      ctx.addIssue({
+        code: 'custom',
+        message: EMAIL_UNIQUE_ERROR,
+        path: ['email'],
+      });
+      return;
+    }
+    if (password !== confirm_password) {
+      ctx.addIssue({
+        code: 'custom',
+        message: PASSWORD_CHECK_ERROR,
+        path: ['confirm_password'],
+      });
+    }
   });
 
 export async function createAccount(prevState: any, formData: FormData) {
