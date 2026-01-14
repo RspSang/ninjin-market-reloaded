@@ -11,7 +11,7 @@ import {
 } from '../lib/constants';
 import db from '../lib/db';
 import bcrypt from 'bcrypt';
-import getSession from '../lib/session';
+import { saveSession } from '@/lib/session';
 import { redirect } from 'next/navigation';
 
 const checkUniqueEmail = async (email: string) => {
@@ -59,9 +59,7 @@ export async function login(prevState: any, formData: FormData) {
     });
     const ok = await bcrypt.compare(result.data.password, user!.password ?? '');
     if (ok) {
-      const session = await getSession();
-      session.id = user!.id;
-      await session.save();
+      await saveSession(user!.id);
       redirect('/profile');
     } else {
       return { fieldErrors: { password: [PASSWORD_INVALID_ERROR], email: [] } };
