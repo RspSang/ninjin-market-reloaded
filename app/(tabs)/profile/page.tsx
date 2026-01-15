@@ -1,7 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
-import db from '../lib/db';
-import getSession from '../lib/session';
-import Button from '../components/Button';
+import db from '../../lib/db';
+import getSession from '../../lib/session';
+import Button from '../../components/Button';
 
 async function getUser() {
   const session = await getSession();

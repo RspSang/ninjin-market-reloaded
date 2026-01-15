@@ -8,7 +8,7 @@ import {
   TOKEN_MAX_LENGTH,
   TOKEN_MIN_LENGTH,
   TOKEN_REQUIRED_ERROR,
-} from '../lib/constants';
+} from '../../lib/constants';
 import { redirect } from 'next/navigation';
 
 const phoneSchema = z

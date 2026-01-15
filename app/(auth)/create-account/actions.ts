@@ -21,11 +21,11 @@ import {
   USERNAME_MIN_LENGTH_ERROR,
   USERNAME_REQUIRED_ERROR,
   USERNAME_UNIQUE_ERROR,
-} from '../lib/constants';
-import db from '../lib/db';
+} from '../../lib/constants';
+import db from '../../lib/db';
 import bcrypt from 'bcrypt';
 import { redirect } from 'next/navigation';
-import { saveSession } from '../lib/session';
+import { saveSession } from '../../lib/session';
 
 const passwordRegex = new RegExp(PASSWORD_REGEX);
 

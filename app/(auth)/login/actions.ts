@@ -8,8 +8,8 @@ import {
   PASSWORD_INVALID_ERROR,
   PASSWORD_INVALID_TYPE_ERROR,
   PASSWORD_REQUIRED_ERROR,
-} from '../lib/constants';
-import db from '../lib/db';
+} from '../../lib/constants';
+import db from '../../lib/db';
 import bcrypt from 'bcrypt';
 import { saveSession } from '@/lib/session';
 import { redirect } from 'next/navigation';

@@ -1,8 +1,8 @@
 'use client';
 
-import Input from '../components/Input';
-import Button from '../components/Button';
-import SocialLogin from '../components/SocialLogin';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import SocialLogin from '../../components/SocialLogin';
 import { useActionState } from 'react';
 import { createAccount } from './actions';
 import {
@@ -10,7 +10,7 @@ import {
   PASSWORD_MIN_LENGTH,
   USERNAME_MAX_LENGTH,
   USERNAME_MIN_LENGTH,
-} from '../lib/constants';
+} from '../../lib/constants';
 
 export default function CreateAccount() {
   const [state, action] = useActionState(createAccount, null);

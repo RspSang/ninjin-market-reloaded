@@ -1,9 +1,9 @@
 'use client';
 
-import Input from '../components/Input';
+import Input from '../../components/Input';
 import { useActionState } from 'react';
 import { smsLogin } from './actions';
-import Button from '../components/Button';
+import Button from '../../components/Button';
 
 const initialState = { isTokenVerified: false, error: undefined };
 
