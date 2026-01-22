@@ -2,6 +2,9 @@
 const nextConfig = {
   experimental: {
     turbopackUseSystemTlsCerts: true,
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
   },
   images: {
     remotePatterns: [

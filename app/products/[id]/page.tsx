@@ -76,6 +76,7 @@ export default async function ProductDetail({
       <div className="relative aspect-square">
         <Image
           fill
+          unoptimized
           src={product.photo}
           alt={product.title}
           className="object-cover"
@@ -89,6 +90,7 @@ export default async function ProductDetail({
               alt={product.user.username}
               width={40}
               height={40}
+              unoptimized
             />
           ) : (
             <UserIcon />

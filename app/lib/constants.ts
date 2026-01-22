@@ -21,8 +21,7 @@ export const USERNAME_MAX_LENGTH_ERROR = 'ユーザーネームが長いです';
 export const USERNAME_INVALID_TYPE_ERROR =
   '正しい形式のユーザーネームを入力ください';
 export const USERNAME_REQUIRED_ERROR = 'ユーザーネームを入力ください';
-export const USERNAME_UNIQUE_ERROR =
-  'ユーザーネームはすでに使われています';
+export const USERNAME_UNIQUE_ERROR = 'ユーザーネームはすでに使われています';
 
 // EMAIL
 export const EMAIL_REQUIRED_ERROR = 'メールアドレスを入力ください';
@@ -38,3 +37,13 @@ export const TOKEN_MIN_LENGTH = 100000;
 export const TOKEN_MAX_LENGTH = 999999;
 export const TOKEN_REQUIRED_ERROR = 'トークンを入力ください';
 export const TOKEN_FORMAT_ERROR = 'トークンが正しくありません';
+
+// PRODUCT
+export const PRODUCT_PHOTO_REQUIRED_ERROR = '画像が必要です';
+export const PRODUCT_TITLE_REQUIRED_ERROR = 'タイトルが必要です';
+export const PRODUCT_PRICE_REQUIRED_ERROR = '価格が必要です';
+export const PRODUCT_DESCRIPTION_REQUIRED_ERROR = '説明が必要です';
+export const PRODUCT_PHOTO_INVALID_TYPE_ERROR =
+  '画像ファイルのみアップロード可能です';
+export const PRODUCT_PHOTO_INVALID_SIZE_ERROR =
+  '画像ファイルは2MB以下でアップロードしてください';
