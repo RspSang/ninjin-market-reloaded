@@ -21,6 +21,7 @@ export default function AddProduct() {
     clearErrors,
     formState: { errors },
   } = useForm<ProductType>({
+    // @ts-ignore
     resolver: zodResolver(productSchema),
   });
 
@@ -53,7 +54,7 @@ export default function AddProduct() {
 
     return uploadProduct(null, formData);
   });
-  console.log(errors);
+  
   return (
     <div>
       <form onSubmit={onSubmit} className="p-5 flex flex-col gap-5">

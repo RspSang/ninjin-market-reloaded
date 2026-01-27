@@ -14,7 +14,7 @@ const publicOnlyUrls: Routes = {
   '/github/complete': true,
 };
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const session = await getSession();
   const exists = publicOnlyUrls[request.nextUrl.pathname];
   if (!session.id) {

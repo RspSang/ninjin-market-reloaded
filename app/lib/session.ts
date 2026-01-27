@@ -17,3 +17,11 @@ export const saveSession = async (userId: number) => {
   session.id = userId;
   await session.save();
 };
+
+export async function checkIsOwner(userId: number) {
+  const session = await getSession();
+  if (session.id) {
+    return session.id === userId;
+  }
+  return false;
+}
