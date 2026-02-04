@@ -7,6 +7,7 @@ const adapter = new PrismaBetterSqlite3({ url: connectionString });
 const prisma = new PrismaClient({ adapter });
 
 (async () => {
+  // Product 생성
   for (let i = 0; i < 100; i++) {
     await prisma.product.create({
       data: {
@@ -23,4 +24,23 @@ const prisma = new PrismaClient({ adapter });
       },
     });
   }
+
+  // Post 생성
+  for (let i = 0; i < 50; i++) {
+    await prisma.post.create({
+      data: {
+        title: faker.lorem.sentence(),
+        description: faker.lorem.paragraphs(2),
+        views: faker.number.int({ min: 0, max: 1000 }),
+        created_at: faker.date.recent({ days: 30 }),
+        user: {
+          connect: {
+            id: 1,
+          },
+        },
+      },
+    });
+  }
+
+  console.log('Seeding completed!');
 })();
