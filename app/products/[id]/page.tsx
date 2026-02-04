@@ -23,6 +23,20 @@ async function getProduct(id: number) {
   return product;
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const idNumber = Number(id);
+  if (isNaN(idNumber)) {
+    return notFound();
+  }
+  const product = await getProduct(idNumber);
+  return { title: product?.title };
+}
+
 export default async function ProductDetail({
   params,
 }: {
@@ -100,24 +114,43 @@ export default async function ProductDetail({
         <span className="text-xl font-semibold">
           {formatToYen(product.price)}円
         </span>
-        <form className="flex gap-2" action={deleteProduct}>
-          {isOwner ? (
-            <button
-              className="bg-red-500 px-5 py-2.5 rounded-md text-white font-semibold hover:bg-red-600 transition-all hover:cursor-pointer"
-              type="submit"
-            >
-              商品を削除
-            </button>
-          ) : (
+{isOwner ? (
+          <div className="flex gap-2">
             <Link
-              href={``}
-              className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold hover:bg-orange-600 transition-all"
+              href={`/products/${product.id}/edit`}
+              className="bg-blue-500 px-5 py-2.5 rounded-md text-white font-semibold hover:bg-blue-600 transition-all"
             >
-              チャット
+              商品を編集
             </Link>
-          )}
-        </form>
+            <form action={deleteProduct}>
+              <button
+                className="bg-red-500 px-5 py-2.5 rounded-md text-white font-semibold hover:bg-red-600 transition-all hover:cursor-pointer"
+                type="submit"
+              >
+                商品を削除
+              </button>
+            </form>
+          </div>
+        ) : (
+          <Link
+            href={``}
+            className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold hover:bg-orange-600 transition-all"
+          >
+            チャット
+          </Link>
+        )}
       </div>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  const products = await db.product.findMany({
+    select: {
+      id: true,
+    },
+  });
+  return products.map((product) => ({
+    id: product.id.toString(),
+  }));
 }

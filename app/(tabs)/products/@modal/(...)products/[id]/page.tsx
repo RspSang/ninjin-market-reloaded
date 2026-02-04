@@ -1,9 +1,8 @@
 import CloseButton from '@/components/CloseButton';
 import ModalBackdrop from '@/components/ModalBackdrop';
 import db from '@/lib/db';
-import getSession, { checkIsOwner } from '@/lib/session';
+import { checkIsOwner } from '@/lib/session';
 import { formatToYen } from '@/lib/utils';
-import { deleteProduct } from '@/products/[id]/actions';
 import { UserIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -32,7 +31,6 @@ export default async function ProductModal({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const session = await getSession();
   const idNumber = Number(id);
 
   if (isNaN(idNumber)) {
@@ -95,12 +93,20 @@ export default async function ProductModal({
               {formatToYen(product.price)}円
             </span>
             {isOwner ? (
-              <button
-                className="bg-red-500 px-5 py-2.5 rounded-md text-white font-semibold hover:bg-red-600 transition-all hover:cursor-pointer"
-                type="submit"
-              >
-                商品を削除
-              </button>
+              <div className="flex gap-2">
+                <Link
+                  href={`/products/${product.id}/edit`}
+                  className="bg-blue-500 px-5 py-2.5 rounded-md text-white font-semibold hover:bg-blue-600 transition-all"
+                >
+                  商品を編集
+                </Link>
+                <button
+                  className="bg-red-500 px-5 py-2.5 rounded-md text-white font-semibold hover:bg-red-600 transition-all hover:cursor-pointer"
+                  type="submit"
+                >
+                  商品を削除
+                </button>
+              </div>
             ) : (
               <Link
                 href={``}
