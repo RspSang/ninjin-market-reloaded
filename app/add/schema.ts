@@ -33,3 +33,9 @@ export const productSchema = z.object({
 });
 
 export type ProductType = z.infer<typeof productSchema>;
+
+export const commentFormSchema = z.object({
+  payload: z.string().min(1, { message: 'コメントを入力してください' }),
+});
+
+export type CommentFormType = z.infer<typeof commentFormSchema>;
